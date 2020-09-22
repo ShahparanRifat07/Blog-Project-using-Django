@@ -31,6 +31,8 @@
 {% else %}
     <h1>Not Allowed</h1>
 {% endif %}
-
-
 {% endblock %}
+<script>
+    var name = "{{ user.id }}";
+    document.getElementById("find_author").value = name
+</script>
