@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ title_name }}
+{% endblock %}
+
+{% block content %}
+
+<h1>Categories</h1>
+<hr>
+{% if cats %}
+    {% for post in cats %}
+            <ul>
+                {% if user.is_authenticated and user.id == post.author.id %}
+                        <li>
+                            <a href="{% url 'post_url' post.pk %}" >{{post.title}}</a> - {{post.date}} - {{  post.author }} - <a href="{% url 'category_post_url' post.category %}">{{ post.category}}</a>
+                        </li>
+                        
+                        {{  post.body|slice:":200"|safe }}
+                        <a href="{% url 'update_url' post.pk %}" class="btn btn-warning">Edit</a> <a href="{% url 'delete_url' post.pk %}" class="btn btn-danger">Delete</a>
+                {% else %}
+                    <li>
+                        <a href="{% url 'post_url' post.pk %}" >{{post.title}}</a> - {{post.date}} - {{  post.author }} - <a href="{% url 'category_post_url' post.category %}">{{ post.category}}</a>
+                    </li>
+                    
+                    {{  post.body|slice:":200"|safe }}
+
+                {% endif %}
+            </ul>
+            <hr>
+    {% endfor %}
+{% else %}
+    <h1>Not Post Yet</h1>
+{% endif %}
+    
+{% endblock %}
